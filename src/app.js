@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from "cors";
-import cookieParse from "cookie-parser";
+import cookieParser from "cookie-parser";
 
 const app=express()
 
@@ -18,5 +18,18 @@ app.use(express.urlencoded({
     limit:"16kb"
 }))
 app.use(express.static("public"))
-app.use(cookiePatser)
+app.use(cookieParser())
+
+//routes
+import userRoutes from "./routes/user.routes.js"
+
+//routes declaration
+app.use("/api/v1/users",userRoutes)
+
+// healthcheck
+app.get("/healthcheck", (req, res) => {
+    res.send("OK");
+})
+
+
 export {app}
